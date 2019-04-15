@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity userController (@Valid @ModelAttribute UserDto userDto){
-        // TODO how to manage validation errors?
+        // errors should be validate somehow more than just returning 500
         userService.saveUser(userDto);
 
         return ResponseEntity
