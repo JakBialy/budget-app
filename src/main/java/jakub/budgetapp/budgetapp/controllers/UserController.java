@@ -31,9 +31,8 @@ public class UserController {
     }
 
     @GetMapping("/check")
-    public ResponseEntity checkIt (){
-        return ResponseEntity
-                .ok("Authenticated!");
+    public String checkIt (){
+        return "Works!";
     }
 
 

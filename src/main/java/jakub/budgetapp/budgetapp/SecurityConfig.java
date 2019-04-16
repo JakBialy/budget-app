@@ -1,5 +1,6 @@
 package jakub.budgetapp.budgetapp;
 
+import jakub.budgetapp.budgetapp.services.CustomLogoutSuccessHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,10 +12,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
-    public SecurityConfig(CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler, CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
+    public SecurityConfig(CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler,
+                          CustomAuthenticationFailureHandler customAuthenticationFailureHandler,
+                          CustomLogoutSuccessHandler customLogoutSuccessHandler) {
         this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
         this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
+        this.customLogoutSuccessHandler = customLogoutSuccessHandler;
     }
 
     // take a look at csrf and cors
@@ -32,8 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(customAuthenticationFailureHandler)
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/succesfullylogout");
+                .logoutSuccessHandler(customLogoutSuccessHandler);
     }
 
 }
