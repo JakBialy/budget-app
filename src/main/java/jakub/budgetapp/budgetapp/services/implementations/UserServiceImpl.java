@@ -1,18 +1,21 @@
-package jakub.budgetapp.budgetapp.services;
+package jakub.budgetapp.budgetapp.services.implementations;
 
 import jakub.budgetapp.budgetapp.dtos.UserDto;
 import jakub.budgetapp.budgetapp.entites.Role;
 import jakub.budgetapp.budgetapp.entites.User;
 import jakub.budgetapp.budgetapp.repositories.UserRepository;
+import jakub.budgetapp.budgetapp.security.RoleService;
+import jakub.budgetapp.budgetapp.services.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@javax.transaction.Transactional
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private static final String DEFAULT_USER_ROLE_NAME = "USER";

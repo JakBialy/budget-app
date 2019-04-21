@@ -1,8 +1,7 @@
-package jakub.budgetapp.budgetapp.services;
+package jakub.budgetapp.budgetapp.security;
 
 import jakub.budgetapp.budgetapp.entites.Role;
 import jakub.budgetapp.budgetapp.repositories.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,7 +9,6 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
 
-    @Autowired
     public RoleServiceImpl(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }

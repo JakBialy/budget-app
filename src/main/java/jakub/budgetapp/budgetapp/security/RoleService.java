@@ -1,4 +1,4 @@
-package jakub.budgetapp.budgetapp.services;
+package jakub.budgetapp.budgetapp.security;
 
 
 import jakub.budgetapp.budgetapp.entites.Role;

@@ -1,4 +1,4 @@
-package jakub.budgetapp.budgetapp.services;
+package jakub.budgetapp.budgetapp.security.authenticationHandlers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -11,6 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
+
+    /**
+     *  When logout succeed status 200 (ok) is send
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @param authentication Authentication
+     */
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         response.setStatus(HttpStatus.OK.value());

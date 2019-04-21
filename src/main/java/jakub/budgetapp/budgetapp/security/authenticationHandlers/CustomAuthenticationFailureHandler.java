@@ -1,4 +1,4 @@
-package jakub.budgetapp.budgetapp;
+package jakub.budgetapp.budgetapp.security.authenticationHandlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -19,6 +19,14 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     *  When authentication failed status 401 (unauthorized) is send along with
+     *  simple information about type of exception and actual date as a JSON
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @param exception AuthenticationException
+     * @throws IOException IOException
+     */
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException {

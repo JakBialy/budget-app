@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Role class is used to define role of users in system
+ */
 @Entity
 @Table(name = "roles")
 @Builder
@@ -11,10 +14,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 public @Getter @Setter
 class Role {
-
-    /**
-     * Role class is used to define role of users in system
-     */
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

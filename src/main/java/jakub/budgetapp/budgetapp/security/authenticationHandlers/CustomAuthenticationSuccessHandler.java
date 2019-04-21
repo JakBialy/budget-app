@@ -1,4 +1,4 @@
-package jakub.budgetapp.budgetapp;
+package jakub.budgetapp.budgetapp.security.authenticationHandlers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -19,6 +19,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     *  When authentication succeed status 200 (ok) is send along with
+     *  information about logged user (username and authority) as a JSON
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @param authentication Authentication
+     * @throws IOException IOException
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {

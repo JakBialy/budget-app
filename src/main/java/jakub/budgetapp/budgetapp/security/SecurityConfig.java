@@ -1,6 +1,8 @@
-package jakub.budgetapp.budgetapp;
+package jakub.budgetapp.budgetapp.security;
 
-import jakub.budgetapp.budgetapp.services.CustomLogoutSuccessHandler;
+import jakub.budgetapp.budgetapp.security.authenticationHandlers.CustomAuthenticationFailureHandler;
+import jakub.budgetapp.budgetapp.security.authenticationHandlers.CustomAuthenticationSuccessHandler;
+import jakub.budgetapp.budgetapp.security.authenticationHandlers.CustomLogoutSuccessHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
