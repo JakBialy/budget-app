@@ -57,7 +57,7 @@ public class UserRepositoryTest {
      */
     @Test(expected = UsernameNotFoundException.class)
     public void testFindByUsername_havingTwoUsers_shouldThrowException(){
-        User result = userRepository.findOneByUsername("XXXX").orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        userRepository.findOneByUsername("XXXX").orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
 }
