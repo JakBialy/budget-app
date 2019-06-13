@@ -3,13 +3,11 @@ package jakub.budgetapp.budgetapp.controllers;
 import jakub.budgetapp.budgetapp.dtos.UserDto;
 import jakub.budgetapp.budgetapp.services.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
-@Controller
 public class UserController {
 
     private final UserService userService;
