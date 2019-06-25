@@ -3,7 +3,7 @@ package jakub.budgetapp.budgetapp.services.implementations;
 import jakub.budgetapp.budgetapp.dtos.FinancialOperation;
 import jakub.budgetapp.budgetapp.services.CsvReaderService;
 import jakub.budgetapp.budgetapp.services.MainCsvReaderService;
-import jakub.budgetapp.budgetapp.services.enums.Banks;
+import jakub.budgetapp.budgetapp.services.enums.Bank;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +28,7 @@ public class MainCsvReaderServiceImpl implements MainCsvReaderService {
     @Override
     public List<List<FinancialOperation>> mainCSVReading (MultipartFile csvFile){
 
-        Optional<Banks> banks = csvReadHelperImpl.checkBankType(csvFile);
+        Optional<Bank> banks = csvReadHelperImpl.checkBankType(csvFile);
         List<List<FinancialOperation>> operations = new ArrayList<>();
 
         if(banks.isPresent()){

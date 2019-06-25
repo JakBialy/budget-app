@@ -1,7 +1,7 @@
 package jakub.budgetapp.budgetapp.services.implementations;
 
 import jakub.budgetapp.budgetapp.services.CsvReaderHelper;
-import jakub.budgetapp.budgetapp.services.enums.Banks;
+import jakub.budgetapp.budgetapp.services.enums.Bank;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +20,7 @@ public class CsvReadHelperImpl implements CsvReaderHelper {
     private static final String KEY_WORD_EUROBANK = "Numer konta:39 1470 0002 2007 2197 1000 0001";
 
     @Override
-    public Optional<Banks> checkBankType (MultipartFile csvFile) {
+    public Optional<Bank> checkBankType (MultipartFile csvFile) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(csvFile.getInputStream(), CHARSET_NAME)) ) {
 
             String line;
@@ -28,9 +28,9 @@ public class CsvReadHelperImpl implements CsvReaderHelper {
                 String[] values = line.split(COMMA_SEPARATOR);
 
                 if (values[0].equals(KEY_WORD_MBANK)){
-                    return Optional.of(Banks.MBANK);
+                    return Optional.of(Bank.MBANK);
                 } else if (values[0].equals(KEY_WORD_EUROBANK)){
-                    return Optional.of(Banks.EUROBANK);
+                    return Optional.of(Bank.EUROBANK);
                 }
 
             }
