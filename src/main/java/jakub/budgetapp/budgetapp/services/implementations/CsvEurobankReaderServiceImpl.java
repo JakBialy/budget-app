@@ -6,12 +6,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- *
+ * Specific reader of .csv files with expenses for polish bank - eurobank
  */
-
 @Service
 public class CsvEurobankReaderServiceImpl extends CsvReader {
+    // this guys below should be put into some kind of properties!
+    // duplicates!
     private static final char MINUS = '-';
+    private static final String SPACE = " ";
+
+    /**
+     * worth noting - this space is different than regular one
+     */
+    private static final String MULTI_IRREGULAR_SPACE_REGEX = " +";
 
 
     public CsvEurobankReaderServiceImpl() {
@@ -28,7 +35,7 @@ public class CsvEurobankReaderServiceImpl extends CsvReader {
         FinancialOperation financialOperation = FinancialOperation
                 .builder()
                 .date(values[dateInput])
-                .description(values[descriptionInput])
+                .description(eurobankStringBeautifier(values[descriptionInput]))
                 .costs(values[costs])
                 .build();
 
@@ -38,6 +45,15 @@ public class CsvEurobankReaderServiceImpl extends CsvReader {
             incomes.add(financialOperation);
         }
 
+    }
+
+    private String eurobankStringBeautifier(String value) {
+
+        StringBuilder beautifulValue = new StringBuilder();
+        beautifulValue.append(value);
+        beautifulValue.deleteCharAt(0).deleteCharAt(beautifulValue.length() - 1);
+
+        return beautifulValue.toString().trim().replaceAll(MULTI_IRREGULAR_SPACE_REGEX, SPACE);
     }
 
 }

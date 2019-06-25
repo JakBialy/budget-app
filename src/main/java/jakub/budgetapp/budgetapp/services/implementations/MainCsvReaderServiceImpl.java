@@ -31,7 +31,7 @@ public class MainCsvReaderServiceImpl implements MainCsvReaderService {
         Optional<Bank> banks = csvReadHelperImpl.checkBankType(csvFile);
         List<List<FinancialOperation>> operations = new ArrayList<>();
 
-        if(banks.isPresent()){
+        if (banks.isPresent()){
             CsvReaderService csvReaderService = readerFactory.getCsvReaderService(banks.get());
             operations = csvReaderService.readCsvFile(csvFile);
         }
