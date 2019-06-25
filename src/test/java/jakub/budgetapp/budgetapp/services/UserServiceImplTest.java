@@ -4,6 +4,7 @@ import jakub.budgetapp.budgetapp.dtos.UserDto;
 import jakub.budgetapp.budgetapp.repositories.UserRepository;
 import jakub.budgetapp.budgetapp.security.RoleService;
 import jakub.budgetapp.budgetapp.services.implementations.UserServiceImpl;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -31,7 +32,12 @@ public class UserServiceImplTest {
     @Mock
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private UserService userService = new UserServiceImpl(userRepository, roleService, bCryptPasswordEncoder);
+    private UserService userService;
+
+    @Before
+    public void setUp(){
+        userService = new UserServiceImpl(userRepository, roleService, bCryptPasswordEncoder);
+    }
 
     /**
      * Should save user
@@ -44,11 +50,11 @@ public class UserServiceImplTest {
                 .username("test_user")
                 .build();
 
+        userService.saveUser(userDto);
+
         verify(bCryptPasswordEncoder, times(1)).encode(userDto.getPassword());
         verify(roleService, times(1)).getOrCreate(DEFAULT_USER_ROLE_NAME);
         verify(userRepository, times(1)).save(any());
-
-        userService.saveUser(userDto);
     }
 
 }
