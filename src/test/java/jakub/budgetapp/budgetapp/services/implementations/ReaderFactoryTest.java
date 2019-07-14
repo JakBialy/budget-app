@@ -3,14 +3,11 @@ package jakub.budgetapp.budgetapp.services.implementations;
 
 import jakub.budgetapp.budgetapp.services.CsvReaderService;
 import jakub.budgetapp.budgetapp.services.enums.Bank;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertTrue;
 
-@RunWith(SpringRunner.class)
-public class ReaderFactoryTest {
+class ReaderFactoryTest {
 
     private ReaderFactory readerFactory = new ReaderFactory();
 
@@ -18,7 +15,7 @@ public class ReaderFactoryTest {
      * @link {@link ReaderFactory#getCsvReaderService(Bank)}
      */
     @Test
-    public void testGetCsvReaderService_havingMbankEnum_shouldReturnCorrectService() {
+    void testGetCsvReaderService_havingMbankEnum_shouldReturnCorrectService() {
         CsvReaderService service = readerFactory.getCsvReaderService(Bank.MBANK);
         assertTrue(service instanceof CsvMbankReaderServiceImpl);
     }
@@ -27,7 +24,7 @@ public class ReaderFactoryTest {
      * @link {@link ReaderFactory#getCsvReaderService(Bank)}
      */
     @Test
-    public void testGetCsvReaderService_havingEurobankEnum_shouldReturnCorrectService() {
+    void testGetCsvReaderService_havingEurobankEnum_shouldReturnCorrectService() {
         CsvReaderService service = readerFactory.getCsvReaderService(Bank.EUROBANK);
         assertTrue(service instanceof CsvEurobankReaderServiceImpl);
     }
