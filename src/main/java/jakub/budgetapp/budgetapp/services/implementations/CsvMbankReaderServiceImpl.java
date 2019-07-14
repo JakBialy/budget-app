@@ -17,7 +17,7 @@ public class CsvMbankReaderServiceImpl extends CsvReader{
     private static final int TITLE = 3;
     private static final int INCOMER_OUTCOMER = 4;
     private static final String SPACE = " ";
-    private static final String MULTI_SPACE_REGEX = " +";
+    private static final String MULTI_IRREGULAR_SPACE_REGEX = " +";
     private static final char SEPARATOR = ',';
 
 
@@ -54,6 +54,6 @@ public class CsvMbankReaderServiceImpl extends CsvReader{
         beautifulValue.setCharAt(0, SEPARATOR);
         beautifulValue.deleteCharAt(beautifulValue.length() - 1);
 
-        return beautifulValue.toString().trim().replaceAll(MULTI_SPACE_REGEX, SPACE);
+        return beautifulValue.toString().trim().replaceAll(MULTI_IRREGULAR_SPACE_REGEX, SPACE);
     }
 }
