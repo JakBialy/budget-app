@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public abstract class CsvReader implements CsvReaderService {
@@ -26,12 +26,12 @@ public abstract class CsvReader implements CsvReaderService {
      */
     @Override
     public List<List<FinancialOperation>> readCsvFile(MultipartFile file) {
-        List<FinancialOperation> incomes = new ArrayList<>();
-        List<FinancialOperation> expenses = new ArrayList<>();
+        List<FinancialOperation> incomes = new LinkedList<>();
+        List<FinancialOperation> expenses = new LinkedList<>();
 
         informationRecording(file, incomes, expenses);
 
-        List<List<FinancialOperation>> operations = new ArrayList<>();
+        List<List<FinancialOperation>> operations = new LinkedList<>();
         operations.add(incomes);
         operations.add(expenses);
 
