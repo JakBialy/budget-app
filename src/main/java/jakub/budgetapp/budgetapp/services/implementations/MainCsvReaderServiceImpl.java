@@ -1,6 +1,6 @@
 package jakub.budgetapp.budgetapp.services.implementations;
 
-import jakub.budgetapp.budgetapp.dtos.FinancialOperation;
+import jakub.budgetapp.budgetapp.dtos.FinancialOperationDto;
 import jakub.budgetapp.budgetapp.services.CsvReaderService;
 import jakub.budgetapp.budgetapp.services.MainCsvReaderService;
 import jakub.budgetapp.budgetapp.services.enums.Bank;
@@ -15,24 +15,24 @@ import java.util.Optional;
 public class MainCsvReaderServiceImpl implements MainCsvReaderService {
 
     private final
-    CsvReadHelperImpl csvReadHelperImpl;
+    BankFactory bankFactory;
 
     private final
     ReaderFactory readerFactory;
 
-    public MainCsvReaderServiceImpl(CsvReadHelperImpl csvReadHelperImpl, ReaderFactory readerFactory) {
-        this.csvReadHelperImpl = csvReadHelperImpl;
+    public MainCsvReaderServiceImpl(BankFactory bankFactory, ReaderFactory readerFactory) {
+        this.bankFactory = bankFactory;
         this.readerFactory = readerFactory;
     }
 
     @Override
-    public List<List<FinancialOperation>> mainCSVReading (MultipartFile csvFile){
+    public List<List<FinancialOperationDto>> mainCSVReading (MultipartFile csvFile){
 
-        Optional<Bank> banks = csvReadHelperImpl.checkBankType(csvFile);
-        List<List<FinancialOperation>> operations = new ArrayList<>();
+        Optional<Bank> bank = bankFactory.getBank(csvFile);
+        List<List<FinancialOperationDto>> operations = new ArrayList<>();
 
-        if (banks.isPresent()){
-            CsvReaderService csvReaderService = readerFactory.getCsvReaderService(banks.get());
+        if (bank.isPresent()){
+            CsvReaderService csvReaderService = readerFactory.getCsvReaderService(bank.get());
             operations = csvReaderService.readCsvFile(csvFile);
         }
 

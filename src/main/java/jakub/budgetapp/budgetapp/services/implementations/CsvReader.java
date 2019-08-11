@@ -1,7 +1,8 @@
 package jakub.budgetapp.budgetapp.services.implementations;
 
-import jakub.budgetapp.budgetapp.dtos.FinancialOperation;
+import jakub.budgetapp.budgetapp.dtos.FinancialOperationDto;
 import jakub.budgetapp.budgetapp.services.CsvReaderService;
+import jakub.budgetapp.budgetapp.services.enums.Currency;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -13,6 +14,7 @@ import java.util.List;
 public abstract class CsvReader implements CsvReaderService {
 
     private static final String COMMA_SEPARATOR = ";";
+    private Currency currency;
 
     int dateInput;
     int descriptionInput;
@@ -25,33 +27,47 @@ public abstract class CsvReader implements CsvReaderService {
      * @param file csv file containing information about operations
      */
     @Override
-    public List<List<FinancialOperation>> readCsvFile(MultipartFile file) {
-        List<FinancialOperation> incomes = new LinkedList<>();
-        List<FinancialOperation> expenses = new LinkedList<>();
+    public List<List<FinancialOperationDto>> readCsvFile(MultipartFile file) {
+        List<FinancialOperationDto> incomes = new LinkedList<>();
+        List<FinancialOperationDto> expenses = new LinkedList<>();
 
         informationRecording(file, incomes, expenses);
 
-        List<List<FinancialOperation>> operations = new LinkedList<>();
+        List<List<FinancialOperationDto>> operations = new LinkedList<>();
         operations.add(incomes);
         operations.add(expenses);
 
         return operations;
     }
 
-    private void informationRecording(MultipartFile file, List<FinancialOperation> incomes, List<FinancialOperation> expenses) {
+    /**
+     * Checks what currency account is state in CSV file
+     * @param values file lines
+     * @return enum type of currency
+     */
+    abstract Currency checkCurrency(String[] values);
+
+    private void informationRecording(MultipartFile file, List<FinancialOperationDto> incomes,
+                                      List<FinancialOperationDto> expenses) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream(), charsetName)) ) {
 
             boolean recording = false;
             String line;
+
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(COMMA_SEPARATOR);
+
+                if (currency == null){
+                    currency = checkCurrency(values);
+                }
 
                 if (recording && values.length <= 1){
                     recording = false;
                 }
 
                 if (recording){
-                    informationExtracting(incomes, expenses, values);
+                    informationExtracting(incomes, expenses, values, currency);
+                    continue;
                 }
 
                 if (line.equals(startingPoint)) {
@@ -71,5 +87,6 @@ public abstract class CsvReader implements CsvReaderService {
      * @param expenses list of expenses
      * @param values values from the csv file line
      */
-    abstract void informationExtracting(List<FinancialOperation> incomes, List<FinancialOperation> expenses, String[] values);
+    abstract void informationExtracting(List<FinancialOperationDto> incomes, List<FinancialOperationDto> expenses,
+                                        String[] values, Currency currency);
 }

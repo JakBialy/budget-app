@@ -1,10 +1,12 @@
 package jakub.budgetapp.budgetapp.services.implementations;
 
 
-import jakub.budgetapp.budgetapp.dtos.FinancialOperation;
+import jakub.budgetapp.budgetapp.dtos.FinancialOperationDto;
+import jakub.budgetapp.budgetapp.services.enums.Currency;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Specific reader of .csv files with expenses for polish bank - mbank
@@ -19,7 +21,7 @@ public class CsvMbankReaderServiceImpl extends CsvReader{
     private static final String SPACE = " ";
     private static final String MULTI_IRREGULAR_SPACE_REGEX = " +";
     private static final char SEPARATOR = ',';
-
+    private static final String STRING_AFTER_CURRENCY_CHECK = "#Numer rachunku";
 
     public CsvMbankReaderServiceImpl() {
         super.dateInput = 0;
@@ -30,19 +32,50 @@ public class CsvMbankReaderServiceImpl extends CsvReader{
     }
 
     @Override
-    void informationExtracting(List<FinancialOperation> incomes, List<FinancialOperation> expenses, String[] values) {
+    Currency checkCurrency(String[] values) {
+        if (checkIfLineIsCurrencyValue(values[0])){
+            Optional<Currency> currency = Optional.empty();
+            try {
+                currency = Optional.of(Currency.valueOf(values[0]));
+            } catch (IllegalArgumentException ex){
+                System.out.println("There's no such value and currency will be interpreted as unknown");
+                // should be moved to a proper logger
+            }
 
-        FinancialOperation financialOperation = FinancialOperation
+            return currency.orElse(Currency.UNKNOWN);
+        } else if(values[0].equals(STRING_AFTER_CURRENCY_CHECK)) {
+            return Currency.UNKNOWN;
+        }
+
+        return null;
+    }
+
+    private boolean checkIfLineIsCurrencyValue(String value) {
+        for (Currency currency: Currency.values()) {
+            if(currency.name().equals(value)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    void informationExtracting(List<FinancialOperationDto> incomes, List<FinancialOperationDto> expenses
+            ,String[] values, Currency currency) {
+
+        FinancialOperationDto financialOperationDto = FinancialOperationDto
                 .builder()
                 .date(values[dateInput])
                 .description(values[descriptionInput] + mbankStringBeautifier(values[TITLE]) + mbankStringBeautifier(values[INCOMER_OUTCOMER]))
-                .costs(values[costs])
+                .costs(values[costs].replace(",", "."))
+                .currency(currency)
                 .build();
 
         if (values[costs].charAt(0) == MINUS){
-            expenses.add(financialOperation);
+            expenses.add(financialOperationDto);
         } else {
-            incomes.add(financialOperation);
+            incomes.add(financialOperationDto);
         }
     }
 
@@ -56,4 +89,6 @@ public class CsvMbankReaderServiceImpl extends CsvReader{
 
         return beautifulValue.toString().trim().replaceAll(MULTI_IRREGULAR_SPACE_REGEX, SPACE);
     }
+
+
 }
