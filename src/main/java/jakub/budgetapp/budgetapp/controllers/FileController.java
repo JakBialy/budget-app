@@ -1,6 +1,6 @@
 package jakub.budgetapp.budgetapp.controllers;
 
-import jakub.budgetapp.budgetapp.dtos.FinancialOperation;
+import jakub.budgetapp.budgetapp.dtos.FinancialOperationDto;
 import jakub.budgetapp.budgetapp.services.implementations.MainCsvReaderServiceImpl;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,7 @@ public class FileController {
     }
 
     @PostMapping("/csv")
-    public List<List<FinancialOperation>> csvController (@RequestParam MultipartFile file){
+    public List<List<FinancialOperationDto>> csvController (@RequestParam MultipartFile file){
         return readerService.mainCSVReading(file);
     }
 
