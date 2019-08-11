@@ -15,10 +15,8 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 public class UserDto {
 
-    @NotEmpty
     private String username;
 
     // How to store it better as String is not the safest option?
-    @NotEmpty
     private String password;
 }
