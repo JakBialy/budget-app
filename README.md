@@ -7,6 +7,7 @@ Current features:
  * login (with passing basic user details for front-end client)
  * logout with success/failer handlers
  * CSV file reader for bank expenses from .csv bank sheets (currentyl for 2 polish banks: Mbank and Eurobank) being able to return parsed data in form of JSON to front-end (or any) client
+ * service able to receive expenses data, parse them and save them into DB for current user
 
 Back-end application is deployed on heroku.
 
