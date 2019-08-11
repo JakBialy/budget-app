@@ -6,6 +6,7 @@ import jakub.budgetapp.budgetapp.entites.User;
 import jakub.budgetapp.budgetapp.repositories.UserRepository;
 import jakub.budgetapp.budgetapp.security.RoleService;
 import jakub.budgetapp.budgetapp.services.UserService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -50,5 +51,8 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-
+    @Override
+    public User loadUserByUserName(String username){
+        return userRepository.findOneByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
 }
