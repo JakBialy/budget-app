@@ -44,7 +44,7 @@ class UserServiceImplTest {
      * {@link UserServiceImpl#saveUser(UserDto)}
      */
     @Test
-    void saveUser() {
+    void saveUser_savingUserWithGivenDetails_shouldSaveUser() {
         UserDto userDto = UserDto.builder()
                 .password("123")
                 .username("test_user")
