@@ -19,6 +19,7 @@ class UserRepositoryTest {
 
     @Autowired
     private TestEntityManager entityManager;
+
     @Autowired
     UserRepository userRepository;
 

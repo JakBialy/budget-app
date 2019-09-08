@@ -20,7 +20,7 @@ public class FinancialOperationMapper implements Mapper<FinancialOperation, Fina
                 .description(entity.getDescription())
                 .category(entity.getCategory())
                 .currency(entity.getCurrency())
-                .date(entity.getLocalDate().toString())
+                .date(entity.getDate().toString())
                 .build();
     }
 
@@ -32,7 +32,7 @@ public class FinancialOperationMapper implements Mapper<FinancialOperation, Fina
                 .costs(new BigDecimal(dto.getCosts()))
                 .description(dto.getDescription())
                 .currency(dto.getCurrency())
-                .localDate(LocalDate.parse(dto.getDate()))
+                .date(LocalDate.parse(dto.getDate()))
                 .build();
     }
 }

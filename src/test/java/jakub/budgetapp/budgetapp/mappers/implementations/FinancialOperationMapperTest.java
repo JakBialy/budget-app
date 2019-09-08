@@ -43,7 +43,7 @@ class FinancialOperationMapperTest {
                 .description(TEST_DESCRIPTION)
                 .category(TEST_CATEGORY)
                 .currency(Currency.PLN)
-                .localDate(TEST_TIME)
+                .date(TEST_TIME)
                 .build();
 
         FinancialOperationDto dto = financialOperationMapper.toDto(entity);
@@ -77,7 +77,7 @@ class FinancialOperationMapperTest {
                 () -> assertEquals(TEST_DESCRIPTION, entity.getDescription()),
                 () -> assertEquals(TEST_CATEGORY, entity.getCategory()),
                 () -> assertEquals(Currency.PLN, entity.getCurrency()),
-                () -> assertEquals(TEST_TIME, entity.getLocalDate()),
+                () -> assertEquals(TEST_TIME, entity.getDate()),
                 () -> assertEquals((Long)1L, entity.getId())
         );
     }

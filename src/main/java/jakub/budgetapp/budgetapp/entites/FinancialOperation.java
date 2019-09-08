@@ -1,8 +1,10 @@
 package jakub.budgetapp.budgetapp.entites;
 
 import jakub.budgetapp.budgetapp.services.enums.Currency;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,8 @@ import java.time.LocalDate;
 @Table(name = "financial_operations")
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FinancialOperation {
 
     @Id
@@ -37,7 +41,7 @@ public class FinancialOperation {
 
     @Column(name = "date")
     @NotNull
-    private LocalDate localDate;
+    private LocalDate date;
 
     @ManyToOne
     @NotNull
