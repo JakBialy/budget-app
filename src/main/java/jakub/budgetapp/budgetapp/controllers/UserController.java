@@ -2,7 +2,7 @@ package jakub.budgetapp.budgetapp.controllers;
 
 import jakub.budgetapp.budgetapp.dtos.UserDto;
 import jakub.budgetapp.budgetapp.services.UserService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,14 +16,12 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @PostMapping("/register")
-    public ResponseEntity userController (@Valid @ModelAttribute UserDto userDto){
+    @ResponseStatus(HttpStatus.CREATED)
+    public void userController (@Valid @ModelAttribute UserDto userDto){
         // errors should be validate somehow more than just returning 500
         userService.saveUser(userDto);
-
-        return ResponseEntity
-                .ok()
-                .build();
     }
 
     /**
@@ -34,7 +32,5 @@ public class UserController {
     public String checkIt (){
         return "Works!";
     }
-
-
 
 }
