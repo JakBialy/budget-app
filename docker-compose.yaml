@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  jakbialy:
+    image: budget-app
+    networks:
+      - main-network
+    ports:
+      - 8080:8080
+
+
+  database:
+    image: postgres:12
+    networks:
+      - main-network
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=budget_app
+
+networks:
+  main-network:

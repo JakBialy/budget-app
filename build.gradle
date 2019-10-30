@@ -33,3 +33,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'jakub.budgetapp.budgetapp.BudgetAppApplication'
+    }
+}
