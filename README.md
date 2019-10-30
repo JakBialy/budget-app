@@ -1,6 +1,8 @@
 # budget-app
 
 Amateur budget-app, this is a back-end part of application, front-end application code is available at https://github.com/saraems/Budget with deployed front-end application on https://saraems.github.io/Budget/#/.
+Image is available at https://cloud.docker.com/u/jakbialy/repository/docker/jakbialy/budget-app it requires to run postgresql database (which is set-up in docker compose file in this repository).
+Now dockerized, with available image and fully working docker composer file.
 
 Current features:
  * user registration
